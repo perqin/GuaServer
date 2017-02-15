@@ -24,7 +24,7 @@ Poller.prototype.createPolling = function (studentId, cookie, clientToken) {
     return new Promise(function (resolve, reject) {
         if (!studentId || studentId === '') {
             reject(new Error('ERROR_INVALID_STUDENT_ID'));
-        } else if (self.pollings.hasOwnProperty(studentId)) {
+        } else if (self.pollings.hasOwnProperty(studentId) && self.pollings[studentId] !== null) {
             reject(new Error('ERROR_POLLING_ALREADY_EXISTS'));
         } else {
             var polling = self.pollings[studentId] = new Polling(studentId, cookie, clientToken);
