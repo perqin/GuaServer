@@ -11,7 +11,7 @@ function Poller() {
 Poller.prototype.getPolling = function (studentId) {
     var self = this;
     return new Promise(function (resolve, reject) {
-        if (studentId && studentId !== '' && self.pollings.hasOwnProperty(studentId)) {
+        if (studentId && studentId !== '' && self.pollings[studentId]) {
             resolve(self.pollings[studentId]);
         } else {
             resolve(null);
@@ -24,7 +24,7 @@ Poller.prototype.createPolling = function (studentId, cookie, clientToken) {
     return new Promise(function (resolve, reject) {
         if (!studentId || studentId === '') {
             reject(new Error('ERROR_INVALID_STUDENT_ID'));
-        } else if (self.pollings.hasOwnProperty(studentId) && self.pollings[studentId] !== null) {
+        } else if (self.pollings[studentId]) {
             reject(new Error('ERROR_POLLING_ALREADY_EXISTS'));
         } else {
             var polling = self.pollings[studentId] = new Polling(studentId, cookie, clientToken);
