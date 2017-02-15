@@ -27,7 +27,6 @@ function pollScores(cookie) {
         resolveWithFullResponse: true
     };
     return rpn(options).then(function (response) {
-        console.log(response.body);
         if (checkRes(response.body)) {
             return eval('resJson = ' + response.body).body.dataStores.kccjStore.rowSet.primary.filter(function (s) {
                 return s['xnd'] === '2016-2017' && s['xq'] === '1';
@@ -44,9 +43,7 @@ function pushToDevice(clientToken, scoreObj) {
             new_score: JSON.stringify(scoreObj)
         }
     };
-    return firebaseAdmin.messaging().sendToDevice(clientToken, payload).then(function (response) {
-        console.log('Successfully sent: ', response);
-    }).catch(function (err) {
+    return firebaseAdmin.messaging().sendToDevice(clientToken, payload).catch(function (err) {
         console.error('Error sending message: ', err);
     });
 }

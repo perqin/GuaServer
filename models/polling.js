@@ -58,6 +58,9 @@ function worker(clientToken, cookie) {
                     if (found.length === 1) {
                         throw new Error('ERROR_ALREADY_EXISTS');
                     }
+                }).catch(function (err) {
+                    // Eat ERROR_ALREADY_EXISTS in console
+                    if (err.message !== 'ERROR_ALREADY_EXISTS') throw err;
                 }).then(function () {
                     return requester.pushToDevice(clientToken, score);
                 }).then(function () {
