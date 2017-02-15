@@ -2,6 +2,7 @@
 
 var config = require('../config/config.json');
 var mongoose = require('mongoose');
+mongoose.Promise = Promise;
 mongoose.connect(config.db);
 mongoose.connection.on('error', console.error.bind(console, 'Connection db error:'));
 mongoose.connection.once('open', function () {

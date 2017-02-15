@@ -4,14 +4,14 @@
 
 var Score = require('./score');
 var requester = require('../requester');
+var config = require('../config/config.json');
 
 function Polling(studentId, cookie, clientToken) {
     this.studentId = studentId;
     this.cookies = cookie;
     this.clientToken = clientToken;
     this.scheduler = null;
-    // this.interval = 25 * 60 * 1000;
-    this.interval = 30 * 1000;
+    this.interval = config.interval * 60 * 1000;
 }
 
 Polling.prototype.startPolling = function () {
