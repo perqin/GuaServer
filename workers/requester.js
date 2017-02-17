@@ -18,6 +18,7 @@ function pollScores(cookie) {
     };
     return rpn(options).then(function (response) {
         if (checkRes(response.body)) {
+            var resJson;
             return eval('resJson = ' + response.body).body.dataStores.kccjStore.rowSet.primary.filter(function (s) {
                 return s['xnd'] === '2016-2017' && s['xq'] === '1';
             });

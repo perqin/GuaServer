@@ -4,19 +4,19 @@
 
 var mongoose = require('mongoose');
 var scoreSchema = mongoose.Schema({
-    student_id: {
+    studentId: {
         type: String
     },
-    course_id: {
+    courseId: {
         type: String
     },
-    course_name: {
+    courseName: {
         type: String
     },
     score: {
         type: String
     },
-    reveal_date: {
+    revealDate: {
         type: Date
     }
 });

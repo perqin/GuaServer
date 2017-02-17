@@ -81,7 +81,7 @@ function syncScores(studentId, cookie) {
             promises.push(Score.remove({ courseId: score.courseId }).exec());
         });
         // Fire promises and resolve with sync
-        return Promise.all(promises).then(function () {
+        return Promise.all(promises).then(function (res) {
             return sync;
         });
     });

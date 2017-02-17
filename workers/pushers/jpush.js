@@ -14,7 +14,9 @@ module.exports = function (clientToken, scoresObj) {
         json: true,
         body: {
             platform: ['android'],
-            audience: clientToken,
+            audience: {
+                registration_id: [clientToken]
+            },
             message: {
                 msg_content: JSON.stringify(scoresObj)
             }

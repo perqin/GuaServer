@@ -1,6 +1,7 @@
 'use strict';
 
 var firebaseAdmin = require('firebase-admin');
+var config = require('../../config/config.json');
 
 var serviceAccount = require('./../../config/service-account-credentials.json');
 firebaseAdmin.initializeApp({

@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 
 var pollingsController = require('../controllers/pollings-controller');
+var scoresController = require('../controllers/scores-controller');
 
 router.get('/:studentId', function(req, res) {
     var studentId = req.params.studentId;
@@ -55,6 +56,25 @@ router.post('/:studentId', function (req, res) {
     //     console.error(err);
     //     res.status(400).send({ msg: err.message });
     // });
+});
+
+router.post('/:studentId/sync', function (req, res) {
+    var studentId = req.params.studentId;
+    var cookie = req.body.cookie;
+    Promise.resolve().then(function () {
+        return pollingsController.authPolling(studentId, cookie);
+    }).then(function () {
+        return scoresController.syncScores(studentId, cookie);
+    }).then(function (sync) {
+        res.send(sync);
+    }).catch(function (err) {
+        if (err.message === 'ERROR_POLLING_NOT_FOUND') {
+            res.status(404).send({ msg: err.message });
+        } else {
+            console.error(err);
+            res.status(400).send({ msg: err.message });
+        }
+    });
 });
 
 router.put('/:studentId', function (req, res) {
