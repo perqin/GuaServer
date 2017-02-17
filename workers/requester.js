@@ -1,16 +1,8 @@
 'use strict';
 
 var rpn = require('request-promise-native');
-// var base64 = require('base-64');
 var wjwScoreUrl = 'http://wjw.sysu.edu.cn/api/score?year2016-2017&term=1&pylb=01';
-// var firebaseAdmin = require('firebase-admin');
 var config = require('./../config/config.json');
-
-// var serviceAccount = require('./../config/service-account-credentials.json');
-// firebaseAdmin.initializeApp({
-//     credential: firebaseAdmin.credential.cert(serviceAccount),
-//     databaseURL: config.firebaseDatabaseUrl
-// });
 
 function pollScores(cookie) {
     var checkRes = function (res) {
@@ -35,18 +27,6 @@ function pollScores(cookie) {
     });
 }
 
-// function pushToDevice(clientToken, scoreObj) {
-//     var payload = {
-//         data: {
-//             new_score: JSON.stringify(scoreObj)
-//         }
-//     };
-//     return firebaseAdmin.messaging().sendToDevice(clientToken, payload).catch(function (err) {
-//         console.error('Error sending message: ', err);
-//     });
-// }
-
 module.exports = {
-    pollScores: pollScores/*,
-    pushToDevice: pushToDevice*/
+    pollScores: pollScores
 };

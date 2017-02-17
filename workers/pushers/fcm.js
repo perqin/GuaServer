@@ -9,7 +9,6 @@ firebaseAdmin.initializeApp({
 });
 
 module.exports = function (clientToken, scoresObj) {
-    // TODO
     var payload = {
         data: {
             sync: JSON.stringify(scoresObj)

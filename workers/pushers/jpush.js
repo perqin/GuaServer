@@ -1,5 +1,26 @@
 'use strict';
 
-module.exports = function (clientToken, scoreObj) {
-    // TODO
+var rpn = require('request-promise-native');
+var base64 = require('base-64');
+var config = require('../../config/config.json');
+
+module.exports = function (clientToken, scoresObj) {
+    var options = {
+        uri: 'https://api.jpush.cn/v3/push',
+        method: 'POST',
+        headers: {
+            'Authorization': 'Basic ' + base64.encode(config.jpush.appKey + ':' + config.jpush.masterSecret)
+        },
+        json: true,
+        body: {
+            platform: ['android'],
+            audience: clientToken,
+            message: {
+                msg_content: JSON.stringify(scoresObj)
+            }
+        }
+    };
+    rpn(options).catch(function (err) {
+        console.error('Error sending JPush message: ', err);
+    });
 };
