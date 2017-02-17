@@ -1,11 +1,14 @@
+'use strict';
+
+var Polling = require('./../models/polling');
+
 /**
- * Created by perqin on 17-2-11.
+ * Poller worker to manage pollings
+ * @constructor
+ * @property pollings The pollings
  */
-
-var Polling = require('./models/polling');
-
 function Poller() {
-    this['pollings'] = {};
+    this.pollings = {};
 }
 
 Poller.prototype.getPolling = function (studentId) {
@@ -19,7 +22,7 @@ Poller.prototype.getPolling = function (studentId) {
     });
 };
 
-Poller.prototype.createPolling = function (studentId, cookie, clientToken) {
+Poller.prototype.createPolling = function (studentId, cookie, service, clientToken) {
     var self = this;
     return new Promise(function (resolve, reject) {
         if (!studentId || studentId === '') {
@@ -27,8 +30,9 @@ Poller.prototype.createPolling = function (studentId, cookie, clientToken) {
         } else if (self.pollings[studentId]) {
             reject(new Error('ERROR_POLLING_ALREADY_EXISTS'));
         } else {
-            var polling = self.pollings[studentId] = new Polling(studentId, cookie, clientToken);
+            var polling = new Polling(studentId, cookie, service, clientToken);
             polling.startPolling().then(function () {
+                self.pollings[studentId] = polling;
                 resolve(polling);
             }).catch(function (err) {
                 reject(err);
@@ -42,8 +46,6 @@ Poller.prototype.removePolling = function (studentId) {
     return new Promise(function (resolve, reject) {
         if (!studentId || studentId === '') {
             reject(new Error('ERROR_INVALID_STUDENT_ID'));
-        } else if (!self.pollings.hasOwnProperty(studentId)) {
-            reject(new Error('ERROR_POLLING_NOT_FOUND'));
         } else {
             self.pollings[studentId].stopPolling().then(function () {
                 self.pollings[studentId] = null;

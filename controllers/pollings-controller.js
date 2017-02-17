@@ -1,9 +1,6 @@
-/**
- * Created by perqin on 17-2-17.
- */
 'use strict';
 
-var Poller = require('../poller');
+var Poller = require('../workers/poller');
 var poller = new Poller();
 
 function authPolling(studentId, cookie) {
@@ -12,6 +9,14 @@ function authPolling(studentId, cookie) {
         if (polling.cookie !== cookie) throw new Error('ERROR_UNAUTHORIZED');
         return polling;
     });
+}
+
+function createPolling(studentId, cookie, service, clientToken) {
+    return poller.createPolling(studentId, cookie, service, clientToken);
+}
+
+function removePolling(studentId) {
+    return poller.removePolling(studentId);
 }
 
 function changePushService(studentId, service, clientToken) {
@@ -24,5 +29,7 @@ function changePushService(studentId, service, clientToken) {
 
 module.exports = {
     authPolling: authPolling,
+    createPolling: createPolling,
+    removePolling: removePolling,
     changePushService: changePushService
 };

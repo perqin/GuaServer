@@ -6,9 +6,9 @@ var rpn = require('request-promise-native');
 var base64 = require('base-64');
 var wjwScoreUrl = 'http://wjw.sysu.edu.cn/api/score?year2016-2017&term=1&pylb=01';
 var firebaseAdmin = require('firebase-admin');
-var config = require('./config/config.json');
+var config = require('./../config/config.json');
 
-var serviceAccount = require('./config/service-account-credentials.json');
+var serviceAccount = require('./../config/service-account-credentials.json');
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(serviceAccount),
     databaseURL: config.firebaseDatabaseUrl

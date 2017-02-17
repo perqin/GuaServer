@@ -3,12 +3,14 @@
  */
 
 var Score = require('./score');
-var requester = require('../requester');
+var requester = require('../workers/requester');
+var pushers = require('../workers/pushers');
 var config = require('../config/config.json');
 
-function Polling(studentId, cookie, clientToken) {
+function Polling(studentId, cookie, service, clientToken) {
     this.studentId = studentId;
     this.cookies = cookie;
+    this.service = service;
     this.clientToken = clientToken;
     this.scheduler = null;
     this.interval = config.interval * 60 * 1000;
