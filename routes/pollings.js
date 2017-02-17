@@ -1,6 +1,5 @@
 'use strict';
 
-var Promise = global.Promise;
 var express = require('express');
 var router = express.Router();
 
