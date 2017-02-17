@@ -4,6 +4,8 @@ var router = express.Router();
 var Poller = require('../poller');
 var poller = new Poller();
 
+var pollingsController = require('../controllers/pollings-controller');
+
 router.get('/:student_id', function(req, res, next) {
     poller.getPolling(req.params.student_id).then(function (polling) {
         if (polling === null) {
@@ -40,6 +42,29 @@ router.post('/:student_id', function (req, res, next) {
     }).catch(function (err) {
         console.error(err);
         res.status(400).send({ msg: err.message });
+    });
+});
+
+// Change push service
+router.put('/:studentId', function (req, res, next) {
+    var studentId = req.params.studentId;
+    var cookie = req.body.cookie;
+    var service = req.body.service;
+    var clientToken = req.body.clientToken;
+    Promise.resolve().then(function () {
+        return pollingsController.authPolling(studentId, cookie);
+    }).then(function () {
+        return pollingsController.changePushService(studentId, service, clientToken);
+    }).then(function (polling) {
+        res.send({
+            studentId: polling.studentId,
+            service: polling.service
+        });
+    }).catch(function (err) {
+        console.error(err);
+        res.status(400).send({
+            msg: err.message
+        });
     });
 });
 
