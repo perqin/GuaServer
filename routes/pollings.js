@@ -8,7 +8,7 @@ var scoresController = require('../controllers/scores-controller');
 
 router.get('/:studentId', function(req, res) {
     var studentId = req.params.studentId;
-    var cookie = req.body.cookie;
+    var cookie = req.header('Authorization');
     Promise.resolve().then(function () {
         return pollingsController.authPolling(studentId, cookie);
     }).then(function (polling) {
@@ -60,7 +60,7 @@ router.post('/:studentId', function (req, res) {
 
 router.post('/:studentId/sync', function (req, res) {
     var studentId = req.params.studentId;
-    var cookie = req.body.cookie;
+    var cookie = req.header('Authorization');
     Promise.resolve().then(function () {
         return pollingsController.authPolling(studentId, cookie);
     }).then(function () {
@@ -79,7 +79,7 @@ router.post('/:studentId/sync', function (req, res) {
 
 router.put('/:studentId', function (req, res) {
     var studentId = req.params.studentId;
-    var cookie = req.body.cookie;
+    var cookie = req.header('Authorization');
     var service = req.body.service;
     var clientToken = req.body.clientToken;
     Promise.resolve().then(function () {
@@ -99,7 +99,7 @@ router.put('/:studentId', function (req, res) {
 
 router.delete('/:studentId', function (req, res) {
     var studentId = req.params.studentId;
-    var cookie = req.body.cookie;
+    var cookie = req.header('Authorization');
     Promise.resolve().then(function () {
         return pollingsController.authPolling(studentId, cookie);
     }).then(function () {
@@ -114,20 +114,6 @@ router.delete('/:studentId', function (req, res) {
             res.status(400).send({ msg: err.message });
         }
     });
-    // poller.getPolling(studentId).then(function (polling) {
-    //     if (polling === null) {
-    //         throw new Error('ERROR_POLLING_NOT_FOUND');
-    //     }
-    //     return poller.removePolling(studentId);
-    // }).then(function () {
-    //     res.status(200).end();
-    // }).catch(function (err) {
-    //     if (err.message === 'ERROR_POLLING_NOT_FOUND') {
-    //         res.status(404).send({ msg: err.message });
-    //     } else {
-    //         res.status(400).send({ msg: err.message });
-    //     }
-    // });
 });
 
 module.exports = router;
