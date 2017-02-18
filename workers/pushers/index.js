@@ -2,7 +2,8 @@
 
 var pushers = {
     fcm: require('./fcm'),
-    jpush: require('./jpush')
+    jpush: require('./jpush'),
+    mipush: require('./mipush')
 };
 
 function push(service, clientToken, scoreObj) {
