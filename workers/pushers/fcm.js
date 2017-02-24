@@ -6,7 +6,7 @@ var config = require('../../config/config.json');
 var serviceAccount = require('./../../config/service-account-credentials.json');
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(serviceAccount),
-    databaseURL: config.firebaseDatabaseUrl
+    databaseURL: config.push.fcm.firebaseDatabaseUrl
 });
 
 module.exports = function (clientToken, scoresObj) {

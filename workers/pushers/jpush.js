@@ -9,7 +9,7 @@ module.exports = function (clientToken, scoresObj) {
         uri: 'https://api.jpush.cn/v3/push',
         method: 'POST',
         headers: {
-            'Authorization': 'Basic ' + base64.encode(config.jpush.appKey + ':' + config.jpush.masterSecret)
+            'Authorization': 'Basic ' + base64.encode(config.push.jpush.appKey + ':' + config.push.jpush.masterSecret)
         },
         json: true,
         body: {

@@ -1,0 +1,25 @@
+{
+  "server": {
+    "port": "3334",
+    "port_comment": "Listening port for this node HTTP server"
+  },
+  "db": "mongodb://guaserver:guaserver@localhost:27017/guaserver",
+  "db_comment": "URI of your MongoDB database in the format 'mongodb://username:password@host:port/dbName'",
+  "interval": 1,
+  "interval_comment": "Interval between two requests to wjw.sysu.edu.cn in minutes. Must less than 30. Set it to a small value when developing to ease your debug time.",
+  "push": {
+    "jpush": {
+      "appKey": "APP_KEY_HERE",
+      "masterSecret": "MASTER_SECRET_HERE",
+      "_comment": "Place your App Key and Master Secret of your JPush app here. Get them at the app dev console of JPush"
+    },
+    "mipush": {
+      "appSecret": "APP_SECRET_HERE",
+      "comment": "Place your App Secret of your MiPush app here. Get it at the app dev console of MiPush"
+    },
+    "fcm": {
+      "firebaseDatabaseUrl": "https://your-project-id.firebaseio.com",
+      "firebaseDatabaseUrl_comment": "The URL of your Firebase project. Refer to Firebase's document for getting yours"
+    }
+  }
+}
